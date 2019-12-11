@@ -21,3 +21,30 @@ regressor = lm(formula = Profit ~ .,
 
 # predicting Test set Results
 y_pred = predict(regressor, newdata = test_set)
+
+# Backward Elimination Steps
+# step 1: take all independent variables for fitting model
+# step 2: check P values of all independent varibales and take 
+#         maximum of all the independent variable and check 
+#         whether if maximum value is > S ie Significance, 
+#         if greater than remove it from set of independent 
+#         variables and repeat this step until there is no more this case.
+# step 3: if there is no more such independent variables which 
+#         has less significance then the model finally created 
+#         will be optimal model. 
+
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + 
+                 Marketing.Spend + State,
+               data = dataset)
+summary(regressor)
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + 
+                 Marketing.Spend,
+               data = dataset)
+summary(regressor)
+regressor = lm(formula = Profit ~ R.D.Spend + 
+                 Marketing.Spend,
+               data = dataset)
+summary(regressor)
+regressor = lm(formula = Profit ~ R.D.Spend, 
+               data = dataset)
+summary(regressor)
