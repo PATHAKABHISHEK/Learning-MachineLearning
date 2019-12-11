@@ -31,3 +31,40 @@ regressor.fit(X_train, y_train)
 
 # Predicting test set results
 y_pred = regressor.predict(X_test)
+
+# Applying Backward Elimination in Multiple Linear Regression Model
+# So we are making an optimal model using backward elimination method
+
+# Backward Elimination Steps
+# step 1: take all independent variables for fitting model
+# step 2: check P values of all independent varibales and take 
+#         maximum of all the independent variable and check 
+#         whether if maximum value is > S ie Significance, 
+#         if greater than remove it from set of independent 
+#         variables and repeat this step until there is no more this case.
+# step 3: if there is no more such independent variables which 
+#         has less significance then the model finally created 
+#         will be optimal model. 
+
+
+import statsmodels.regression.linear_model as sm
+X = np.append(arr = np.ones((50, 1)).astype(int), values = X, axis = 1)
+X_opt = X[:, [0, 1, 2, 3, 4, 5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+X_opt = X[:, [0, 2, 3, 4, 5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+X_opt = X[:, [0, 3, 4, 5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+X_opt = X[:, [0, 3, 5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+
+# Optimal Model
+X_opt = X[:, [0, 3]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+
+
